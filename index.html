@@ -91,13 +91,13 @@ function startSearch(){
 		if(res && res.length>0){
 			console.log(res.length);
 			
-			document.getElementsByTagName("div")[0].innerHTML = '<h1>'+res.length+" centers found, checking every 5 seconds.</h1><br/><h3>Last refreshed:"+getTimestamp()+'</h3>';
+			document.getElementsByTagName("div")[0].innerHTML = '<h1>'+res.length+" centers found, checking every 5 seconds.</h1><br/><h3>Last checked:"+getTimestamp()+'</h3>';
 			audio.loop = true;
 			audio.play();
 			clearInterval(id);
 		}
 		else{
-			document.getElementsByTagName("div")[0].innerHTML = '<h1>'+0+" centers found, checking every 5 seconds.</h1><br/><h3>Last refreshed:"+getTimestamp()+'</h3>';
+			document.getElementsByTagName("div")[0].innerHTML = '<h1>'+0+" centers found, checking every 5 seconds.</h1><br/><h3>Last checked:"+getTimestamp()+'</h3>';
 		}
 	},5000)
 }
