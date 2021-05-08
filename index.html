@@ -83,6 +83,7 @@ function getTimestamp(){
 	return dformat;
 }
 function startSearch(){
+	setDate();
 	if(mode=='d'){
 		if(districtid==null || districtid.length==0){
 			alert("Please select your district.");
