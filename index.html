@@ -345,7 +345,7 @@ function sessionLoop(session, center){
 	else{agematched = (selectedAgeGroupValue==session.min_age_limit)}
 	if(vaccinematched && agematched){  
 		let entryadded = false;
-		activetable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":0})
+		activetable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":1})
 		if(sessionCheckedMap[session.date+center.center_id]==null || sessionCheckedMap[session.date+center.center_id]==undefined || sessionCheckedMap[session.date+center.center_id]==0){			
 			newentryfound = true;
 			//First appearance set to notify after at least 15 min
