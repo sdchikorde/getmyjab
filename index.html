@@ -1,5 +1,13 @@
 <html>
 <head>
+<title>GetMyJab</title>
+<meta name="description" content="Vaccine Slot Availability Notifier : An initiative by Sid Chikorde">
+<meta property="og:title" content="GetMyJab" />
+<meta property="og:url" content="https://sdchikorde.github.io/getmyjab/" />
+<meta property="og:description" content="Vaccine Slot Availability Notifier : An initiative by Sid Chikorde">
+<meta property="og:image" content="https://i.ibb.co/9ynTYSD/getmyjab.png">
+<meta property="og:type" content="website" />
+<link rel="icon" href="https://i.ibb.co/9ynTYSD/getmyjab.png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css">
@@ -385,7 +393,7 @@ function startSearch(){
 			return;
 		}
 	}
-	document.getElementsByClassName("targetlocation")[0].innerHTML = '<h3>Searching for '+(mode=='d'?'District '+districtid.substr(districtid.trim().indexOf(' ')+1):'PIN '+pin)+' for '+(selectedAgeGroupValue==''?'All':(selectedAgeGroupValue=='18'?'18-44':'45+'))+' age group'+(selectedVaccineValue==''?'':' for '+selectedVaccineValue)+'</h3>';
+	document.getElementsByClassName("targetlocation")[0].innerHTML = '<h3>Searching for '+(mode=='d'?'District '+districtid.substr(districtid.trim().indexOf(' ')+1):'PIN '+pin)+' for '+(selectedAgeGroupValue==''?'All':(selectedAgeGroupValue=='18'?'18-44':'45+'))+' age group'+(selectedVaccineValue==''?'':' for '+selectedVaccineValue)+(maxdatestr==mindatestr?' on '+mindatestr:' between '+mindatestr+' & '+maxdatestr)+'</h3>';
 	document.getElementsByClassName("status")[0].innerHTML = '<h1>Searching...</h1>';
 	document.getElementsByClassName("forminput")[0].innerHTML = '';
 	districtid=districtid.split(" ")[0];
@@ -477,11 +485,15 @@ function startSearch(){
 		//////////////$('table').DataTable();
 	},5000)
 }
+var mindatestr;
+var maxdatestr;
 var mindate;
 var maxdate;
 function getStarted(){
-	mindate = $( "#from" ).datepicker( "getDate" );
-	maxdate = $( "#to" ).datepicker( "getDate" );
+	mindatestr = document.getElementById('from').value;
+	maxdatestr = document.getElementById('to').value;
+	mindate = parseDate(mindatestr)
+	maxdate = parseDate(maxdatestr)
 	var accords = document.getElementsByClassName("accord");
 	for(var i = 0; i < accords.length; i++){
 		accords[i].checked = false;
