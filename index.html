@@ -289,7 +289,7 @@ function logtableloop(row){
 		newicon="&#127381;&nbsp;"
 	}
 	/////////document.getElementsByClassName("table")[0].style.display = "block";
-	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'</td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
+	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'</td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button style="background:inherit;" onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button style="background:inherit;" onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
 	document.getElementById("tbllogbody").innerHTML = newrow + document.getElementById("tbllogbody").innerHTML;
 }
 function activetableloop(row){
@@ -301,7 +301,7 @@ function activetableloop(row){
 		newicon="&#127381;&nbsp;"
 	}
 	/////////document.getElementsByClassName("tableactive")[0].style.display = "block";
-	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'</td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
+	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'</td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button style="background:inherit;" onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button style="background:inherit;" onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
 	document.getElementById("tblactivebody").innerHTML = newrow + document.getElementById("tblactivebody").innerHTML;
 }
 function sessionCheckedMapLoop(pair){
