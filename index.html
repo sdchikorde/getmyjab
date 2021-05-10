@@ -295,7 +295,7 @@ function logtableloop(row){
 function activetableloop(row){
 	highlightstyle=""
 	newicon=""
-	if(row.ttl){
+	if(sessionCheckedMap[row.session.date+row.center.center_id]>(notifyonlyafter-highlightfor)){
 		row.ttl-=1;
 		highlightstyle='style="background-color:yellow;"'
 		newicon="&#127381;&nbsp;"
@@ -335,6 +335,8 @@ function centerLoop(center) {
 	}
   }
 }
+var notifyonlyafter = 180;
+var highlightfor = 12;
 function sessionLoop(session, center){
   if(session.available_capacity>0 && parseDate(session.date) >= mindate && parseDate(session.date) <= maxdate){
 	let agematched = false;
@@ -345,18 +347,18 @@ function sessionLoop(session, center){
 	else{agematched = (selectedAgeGroupValue==session.min_age_limit)}
 	if(vaccinematched && agematched){  
 		let entryadded = false;
-		activetable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":1})
+		activetable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":0})
 		if(sessionCheckedMap[session.date+center.center_id]==null || sessionCheckedMap[session.date+center.center_id]==undefined || sessionCheckedMap[session.date+center.center_id]==0){			
 			newentryfound = true;
 			//First appearance set to notify after at least 15 min
-			sessionCheckedMap[session.date+center.center_id]=180;
+			sessionCheckedMap[session.date+center.center_id]=notifyonlyafter;
 			/*
 			//Second appearance onwards set to notify after at least 30 min
 			if(sessionCheckedMap[session.date+center.center_id]==0){
 				sessionCheckedMap[session.date+center.center_id]=360;
 			}
 			*/
-			logtable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":12})
+			logtable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":highlightfor})
 			entryadded = true;
 		}
 		//console.log(center,session);
