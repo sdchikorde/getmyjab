@@ -494,6 +494,7 @@ var maxdatestr;
 var mindate;
 var maxdate;
 function getStarted(){
+	CheckForSafari();
 	mindatestr = document.getElementById('from').value;
 	maxdatestr = document.getElementById('to').value;
 	mindate = parseDate(mindatestr)
@@ -565,5 +566,15 @@ $(function() {
 	  }
 	}).datepicker("setDate", "7");
 });
+function CheckForSafari() {
+
+  var is_safari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
+  if(is_safari){
+	audio.play()
+	audio.pause()
+	audio.currentTime = 0
+  }
+
+}
 </script>
 </html>
