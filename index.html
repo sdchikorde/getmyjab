@@ -400,7 +400,7 @@ function startSearch(){
 	document.getElementsByClassName("targetlocation")[0].innerHTML = '<h3>Searching for '+(mode=='d'?'District '+districtid.substr(districtid.trim().indexOf(' ')+1):'PIN '+pin)+' for '+(selectedAgeGroupValue==''?'All':(selectedAgeGroupValue=='18'?'18-44':'45+'))+' age group'+(selectedVaccineValue==''?'':' for '+selectedVaccineValue)+(maxdatestr==mindatestr?' on '+mindatestr:' between '+mindatestr+' & '+maxdatestr)+'</h3>';
 	document.getElementsByClassName("status")[0].innerHTML = '<h1>Searching...</h1>';
 	document.getElementsByClassName("forminput")[0].innerHTML = '';
-	districtid=districtid.split(" ")[0];
+	if(districtid){districtid=districtid.split(" ")[0];}
 	window.scrollTo(0,0)
 	var id=setInterval(function(){
 		setDate();
