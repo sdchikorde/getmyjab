@@ -340,7 +340,7 @@ function centerLoop(center) {
 var notifyonlyafter = 180;
 var highlightfor = 12;
 function sessionLoop(session, center){
-  if(session.available_capacity>0 && parseDate(session.date) >= mindate && parseDate(session.date) <= maxdate){
+  if(session.available_capacity>=1 && parseDate(session.date) >= mindate && parseDate(session.date) <= maxdate){
 	let agematched = false;
 	let vaccinematched = false;
 	if(selectedVaccineValue==''){vaccinematched = true;}
