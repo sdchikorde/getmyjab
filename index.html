@@ -246,8 +246,18 @@ var newentryfound;
 var audioplaying=false;
 var logtable = [];
 var activetable = [];
+Date.prototype.getISTTime = function(){ 
+  return new Date(new Date(
+    this.getUTCFullYear(),
+    this.getUTCMonth(),
+    this.getUTCDate(),
+    this.getUTCHours(),
+    this.getUTCMinutes(), 
+    this.getUTCSeconds()
+  ).getTime()+19800000);
+}
 function setDate(){
-	var today = new Date()
+	var today = new Date().getISTTime()
 	//console.log(today)
 	
 	today.setDate(today.getDate())
@@ -265,22 +275,6 @@ function setDate(){
 	} 
 	querydate = dd+'-'+mm+'-'+yyyy;
 	//console.log(querydate);
-	
-	today.setDate(today.getDate() + 1)
-	dd = today.getDate();
-	mm = today.getMonth()+1;
-	yyyy = today.getFullYear();
-	if(dd<10) 
-	{
-		dd='0'+dd;
-	} 
-
-	if(mm<10) 
-	{
-		mm='0'+mm;
-	} 
-	targetdate = dd+'-'+mm+'-'+yyyy;
-	//console.log(targetdate);
 }
 function logtableloop(row){
 	highlightstyle=""
@@ -378,7 +372,7 @@ var audio = new Audio('https://assets.mixkit.co/sfx/download/mixkit-alarm-clock-
 var mode;
 var pin;
 function getTimestamp(){
-	var d = new Date
+	var d = new Date()
     dformat = [d.getDate().padLeft(),
                (d.getMonth()+1).padLeft(),
 			   d.getFullYear()].join('/') +' ' +
