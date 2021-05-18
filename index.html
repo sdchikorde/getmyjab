@@ -203,12 +203,21 @@ body {
 			<input style="margin-left:16px;" type="radio" name="VAX" id="cova" value="COVAXIN"><label for="cova">COVAXIN</label><br> 
 			<input style="margin-left:16px;" type="radio" name="VAX" id="anyvax" value="" checked><label for="anyvax">Any</label><br>
 		</div>
-		
+		<div style="display: flex;justify-content: center;">
 		<h3> Choose your target age group: </h3>
+		</div>
 		<div style="display: flex;justify-content: center;font-size: 18px;">
 			<input style="margin-left:16px;" type="radio" name="JTP" id="age18" value="18"><label for="age18">18-44</label><br> 
 			<input style="margin-left:16px;" type="radio" name="JTP" id="age45" value="45"><label for="age45">45+</label><br> 
 			<input style="margin-left:16px;" type="radio" name="JTP" id="ageall" value="" checked><label for="ageall">Both</label><br>
+		</div>
+		<div style="display: flex;justify-content: center;">
+		<h3> Choose your dose number: </h3><span style="font-size:18px;margin-top:-3px;cursor:help;" onclick="alert('We recommend to choose your dose number to only get notification for matching availability.')" title="We recommend to choose your dose number to only get notification for matching availability">&nbsp;&#9432;</span>
+		</div>
+		<div style="display: flex;justify-content: center;font-size: 18px;">
+			<input style="margin-left:16px;" type="radio" name="DNO" id="dose1" value="dose1"><label for="dose1">Dose no. 1</label><br> 
+			<input style="margin-left:16px;" type="radio" name="DNO" id="dose2" value="dose2"><label for="dose2">Dose no. 2</label><br> 
+			<input style="margin-left:16px;" type="radio" name="DNO" id="doseany" value="" checked><label for="doseany">Either</label><br>
 		</div>
 		<div style="display: flex;justify-content: center;">
 			<h3> Any particular date?: </h3><span style="font-size:18px;margin-top:-3px;cursor:help;" onclick="alert('Use only if you are looking for vaccine availability on a particular date. We suggest to keep default values.\nSince it has been observed that slots are majorly opened for next day only.')" title="Use only if you are looking for vaccine availability on a particular date. We suggest to keep default values.&#10;Since it has been observed that slots are majorly opened for next day only.">&nbsp;&#9432;</span>
@@ -241,6 +250,7 @@ var querydate;
 var sessionCheckedMap = {}
 var selectedVaccineValue;
 var selectedAgeGroupValue;
+var selectedDoseNumberValue;
 var rowdisplay;
 var newentryfound;
 var audioplaying=false;
@@ -285,7 +295,7 @@ function logtableloop(row){
 		newicon="&#127381;&nbsp;"
 	}
 	/////////document.getElementsByClassName("table")[0].style.display = "block";
-	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'</td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button style="background:inherit;" onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button style="background:inherit;" onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
+	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'<br><sub>(First: '+row.session.available_capacity_dose1+', Second: '+row.session.available_capacity_dose2+')</sub></td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button style="background:inherit;" onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button style="background:inherit;" onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
 	document.getElementById("tbllogbody").innerHTML = newrow + document.getElementById("tbllogbody").innerHTML;
 }
 function activetableloop(row){
@@ -297,7 +307,7 @@ function activetableloop(row){
 		newicon="&#127381;&nbsp;"
 	}
 	/////////document.getElementsByClassName("tableactive")[0].style.display = "block";
-	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'</td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button style="background:inherit;" onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button style="background:inherit;" onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
+	let newrow = '<tr '+highlightstyle+'><td>'+row.session.vaccine+'</td><td>'+(row.session.min_age_limit==18?'18-44':'45+')+'</td><td title="'+row.center.address+'">'+newicon+row.center.name+'</td><td>'+row.session.date+'</td><td>'+row.session.available_capacity+'<br><sub>(First: '+row.session.available_capacity_dose1+', Second: '+row.session.available_capacity_dose2+')</sub></td><td>'+row.center.fee_type+'</td><td>'+row.center.pincode+'</td><td>'+row.timestamp+'</td><td><button style="background:inherit;" onclick="showonmap(\''+row.center.district_name+ ' ' + row.center.pincode+'\')">&#127759;</button></td><td><button style="background:inherit;" onclick="searchweb(\''+row.center.district_name+ ' ' + row.center.pincode+' ' + row.center.address+'\')">&#128269;</button></td></tr>'
 	document.getElementById("tblactivebody").innerHTML = newrow + document.getElementById("tblactivebody").innerHTML;
 }
 function sessionCheckedMapLoop(pair){
@@ -337,11 +347,15 @@ function sessionLoop(session, center){
   if(session.available_capacity>=1 && parseDate(session.date) >= mindate && parseDate(session.date) <= maxdate){
 	let agematched = false;
 	let vaccinematched = false;
+	let dosenumbermatched = false;
 	if(selectedVaccineValue==''){vaccinematched = true;}
 	else{vaccinematched = (selectedVaccineValue==session.vaccine)}
 	if(selectedAgeGroupValue==''){agematched = true;}
 	else{agematched = (selectedAgeGroupValue==session.min_age_limit)}
-	if(vaccinematched && agematched){  
+	if(selectedDoseNumberValue==''){dosenumbermatched = true;}
+	else if(selectedDoseNumberValue=='dose1' && session.available_capacity_dose1 > 0){dosenumbermatched = true;}
+	else if(selectedDoseNumberValue=='dose2' && session.available_capacity_dose2 > 0){dosenumbermatched = true;}
+	if(vaccinematched && agematched && dosenumbermatched){  
 		let entryadded = false;
 		activetable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":0})
 		if(sessionCheckedMap[session.date+center.center_id]==null || sessionCheckedMap[session.date+center.center_id]==undefined || sessionCheckedMap[session.date+center.center_id]==0){			
@@ -391,7 +405,7 @@ function startSearch(){
 			return;
 		}
 	}
-	document.getElementsByClassName("targetlocation")[0].innerHTML = '<h3>Searching for '+(mode=='d'?'District '+districtid.substr(districtid.trim().indexOf(' ')+1):'PIN '+pin)+' for '+(selectedAgeGroupValue==''?'All':(selectedAgeGroupValue=='18'?'18-44':'45+'))+' age group'+(selectedVaccineValue==''?'':' for '+selectedVaccineValue)+(maxdatestr==mindatestr?' on '+mindatestr:' between '+mindatestr+' & '+maxdatestr)+'</h3>';
+	document.getElementsByClassName("targetlocation")[0].innerHTML = '<h3>Searching for '+(mode=='d'?'District '+districtid.substr(districtid.trim().indexOf(' ')+1):'PIN '+pin)+' for '+(selectedAgeGroupValue==''?'All':(selectedAgeGroupValue=='18'?'18-44':'45+'))+' age group'+(selectedVaccineValue==''?'':' for '+selectedVaccineValue)+(selectedDoseNumberValue==''?'':' for '+selectedDoseNumberValue)+(maxdatestr==mindatestr?' on '+mindatestr:' between '+mindatestr+' & '+maxdatestr)+'</h3>';
 	document.getElementsByClassName("status")[0].innerHTML = '<h1>Searching...</h1>';
 	document.getElementsByClassName("forminput")[0].innerHTML = '';
 	if(mode=='d'){districtid=districtid.split(" ")[0];}
@@ -499,8 +513,10 @@ function getStarted(){
 	}
 	selectedVaccineValue = document.querySelector( 'input[name="VAX"]:checked').value;
 	selectedAgeGroupValue = document.querySelector( 'input[name="JTP"]:checked').value;
+	selectedDoseNumberValue = document.querySelector( 'input[name="DNO"]:checked').value;
 	console.log(selectedVaccineValue)
 	console.log(selectedAgeGroupValue)
+	console.log(selectedDoseNumberValue)
 	setDate();
 	if (confirm("Press OK to search by district OR Press Cancel to search by PIN code")) {
 		mode = 'd'
