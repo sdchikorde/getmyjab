@@ -201,6 +201,7 @@ body {
 		<div style="display: flex;justify-content: center;font-size: 18px;margin-bottom:8px;">
 			<input style="margin-left:16px;" type="radio" name="VAX" id="covi" value="COVISHIELD"><label for="covi">COVISHIELD</label><br> 
 			<input style="margin-left:16px;" type="radio" name="VAX" id="cova" value="COVAXIN"><label for="cova">COVAXIN</label><br> 
+			<input style="margin-left:16px;" type="radio" name="VAX" id="sput" value="SPUTNIK V"><label for="sput">SPUTNIK V</label><br> 
 			<input style="margin-left:16px;" type="radio" name="VAX" id="anyvax" value="" checked><label for="anyvax">Any</label><br>
 		</div>
 		<div style="display: flex;justify-content: center;">
@@ -301,7 +302,7 @@ function logtableloop(row){
 function activetableloop(row){
 	highlightstyle=""
 	newicon=""
-	if(sessionCheckedMap[row.session.date+row.center.center_id]>(notifyonlyafter-highlightfor)){
+	if(sessionCheckedMap[row.session.session_id+row.center.center_id]>(notifyonlyafter-highlightfor)){
 		row.ttl-=1;
 		highlightstyle='style="background-color:yellow;"'
 		newicon="&#127381;&nbsp;"
@@ -358,14 +359,14 @@ function sessionLoop(session, center){
 	if(vaccinematched && agematched && dosenumbermatched){  
 		let entryadded = false;
 		activetable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":0})
-		if(sessionCheckedMap[session.date+center.center_id]==null || sessionCheckedMap[session.date+center.center_id]==undefined || sessionCheckedMap[session.date+center.center_id]==0){			
+		if(sessionCheckedMap[session.session_id+center.center_id]==null || sessionCheckedMap[session.session_id+center.center_id]==undefined || sessionCheckedMap[session.session_id+center.center_id]==0){			
 			newentryfound = true;
 			//First appearance set to notify after at least 15 min
-			sessionCheckedMap[session.date+center.center_id]=notifyonlyafter;
+			sessionCheckedMap[session.session_id+center.center_id]=notifyonlyafter;
 			/*
 			//Second appearance onwards set to notify after at least 30 min
-			if(sessionCheckedMap[session.date+center.center_id]==0){
-				sessionCheckedMap[session.date+center.center_id]=360;
+			if(sessionCheckedMap[session.session_id+center.center_id]==0){
+				sessionCheckedMap[session.session_id+center.center_id]=360;
 			}
 			*/
 			logtable.push({"session":session,"center":center,"timestamp":getTimestamp(),"ttl":highlightfor})
